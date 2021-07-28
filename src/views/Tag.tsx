@@ -10,6 +10,7 @@ import { useTags } from 'useTags';
 type Params = {
     id:string
 }
+
 const Topbar = styled.header`
     display: flex;
     justify-content: space-between;
@@ -38,9 +39,25 @@ const LabelWrapper = styled.div`
   }
 `
 const Tag:React.FC = () => {
-    const {findTag,updateTag} = useTags()
+    const {findTag,updateTag,deleteTag} = useTags()
     let {id:idString} = useParams<Params>()
     const tag = findTag(parseInt(idString))
+    const tagContent = (tag:{id:number,name:string})=>(
+        <div>
+            <LabelWrapper>
+                    <label>
+                        <span>标签名</span>
+                        <input type="text" placeholder="标签名" value={tag.name} onChange={(e)=>{updateTag(tag.id,{name:e.target.value})}}/>
+                    </label>
+                </LabelWrapper>
+                <Center>
+                    <Space/>
+                    <Space/>
+                    <Space/>
+                    <Button onClick={()=>deleteTag(tag.id)}>删除标签</Button>
+                </Center>
+        </div>
+    )
     return (
         <Layout>
             <Topbar>
@@ -48,18 +65,7 @@ const Tag:React.FC = () => {
                 <span>编辑标签</span>
                 <Icon/>
             </Topbar>
-            <LabelWrapper>
-                <label>
-                    <span>标签名</span>
-                    <input type="text" placeholder="标签名" value={tag.name} onChange={(e)=>{updateTag(tag.id,{name:e.target.value})}}/>
-                </label>
-            </LabelWrapper>
-            <Center>
-                <Space/>
-                <Space/>
-                <Space/>
-                <Button>删除标签</Button>
-            </Center>
+            {tag ? tagContent(tag):<Center>tag不存在</Center>}
         </Layout>
     )
 }
