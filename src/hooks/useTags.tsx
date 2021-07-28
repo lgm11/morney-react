@@ -1,4 +1,4 @@
-import { useUpdate } from "hook/useUpdate";
+import { useUpdate } from "hooks/useUpdate";
 import { createId } from "lib/createId";
 import { useEffect, useRef, useState } from "react";
 
