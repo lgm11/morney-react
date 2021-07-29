@@ -17,8 +17,8 @@ type newRecordItem = {
 const useRecords = () => {
     const [records,setRecords] = useState<RecordItem[]>([])
     useEffect(()=>{
-        setRecords(JSON.parse(window.localStorage.getItem('records')||'[]'))
-    })
+        setRecords(JSON.parse(window.localStorage.getItem('records')||'[]'),)
+    },[])
     const addRecord = (newRecord:newRecordItem) => {
         if(newRecord.amount <= 0){
             alert('请输入金额')
