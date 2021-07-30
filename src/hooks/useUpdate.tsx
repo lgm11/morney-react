@@ -8,7 +8,7 @@ useEffect(() => {
 useEffect(() => {
     if(count.current > 1){  
        fn()}
-},deps)
+},[fn,deps])
 }
 
 export {useUpdate}
